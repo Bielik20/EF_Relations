@@ -45,6 +45,14 @@ namespace EF_Relations.Migrations
             movies[2].Genres.Add(genres[2]);
             context.SaveChanges();
 
+            var container = new MovieContainer
+            {
+                Description = "This is original container for movie",
+                Movie = movies[0]
+            };
+            context.MovieContainers.Add(container);
+            context.SaveChanges();
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

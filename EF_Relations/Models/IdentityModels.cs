@@ -35,6 +35,7 @@ namespace EF_Relations.Models
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<MovieContainer> MovieContainers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
