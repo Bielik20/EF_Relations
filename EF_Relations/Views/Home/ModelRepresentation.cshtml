@@ -1,0 +1,14 @@
+﻿@model EF_Relations.Models.MovieContainer
+@{
+    ViewBag.Title = "Model Representation";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<br />
+<div class="row">
+    <div class="col-sm-4">
+        <label class="col-sm-6">@Html.DisplayNameFor(model => model.Description)</label>
+        <div class="col-sm-6">@Html.DisplayFor(model => model.Description)</div>
+    </div>
+</div>

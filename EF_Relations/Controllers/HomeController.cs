@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EF_Relations.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,6 +26,17 @@ namespace EF_Relations.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult ModelRepresentation()
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var containers = context.MovieContainers.ToList();
+                var movies = context.Movies.ToList();
+
+                return View(containers[0]);
+            }
         }
     }
 }
