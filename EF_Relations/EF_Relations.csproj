@@ -267,6 +267,7 @@
     <Content Include="Views\Movies\DetailsContainer.cshtml" />
     <Content Include="Views\Movies\CreateMovie.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CheckBoxListItem.cshtml" />
+    <Content Include="Views\Movies\DeleteContainer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
