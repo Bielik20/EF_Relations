@@ -31,11 +31,38 @@ namespace EF_Relations.Migrations
             context.Genres.AddRange(genres);
             context.SaveChanges();
 
+            var containers = new List<MovieContainer>
+            {
+                new MovieContainer { Description = "This is original container for movie" },
+                new MovieContainer { Description = "This is second container" },
+                new MovieContainer { Description = "This third" }
+            };
+            context.MovieContainers.AddRange(containers);
+            context.SaveChanges();
+
             var movies = new List<Movie>
             {
-                new Movie {Title = "Godfather", RunningTime = 180, ReleaseDate = DateTime.Parse("2005-09-01") },
-                new Movie {Title = "Rain", RunningTime = 120, ReleaseDate = DateTime.Parse("2002-06-01") },
-                new Movie {Title = "Gone with the wind", RunningTime = 240, ReleaseDate = DateTime.Parse("2003-08-01") },
+                new Movie
+                {
+                    Title = "Godfather",
+                    RunningTime = 180,
+                    ReleaseDate = DateTime.Parse("2005-09-01"),
+                    Id = containers[2].Id
+                },
+                new Movie
+                {
+                    Title = "Rain",
+                    RunningTime = 120,
+                    ReleaseDate = DateTime.Parse("2002-06-01"),
+                    MovieContainer = containers[1]
+                },
+                new Movie
+                {
+                    Title = "Gone with the wind",
+                    RunningTime = 240,
+                    ReleaseDate = DateTime.Parse("2003-08-01"),
+                    MovieContainer = containers[0]
+                }
             };
             context.Movies.AddRange(movies);
             context.SaveChanges();
@@ -43,14 +70,6 @@ namespace EF_Relations.Migrations
             movies[0].Genres.Add(genres[0]);
             movies[0].Genres.Add(genres[1]);
             movies[2].Genres.Add(genres[2]);
-            context.SaveChanges();
-
-            var container = new MovieContainer
-            {
-                Description = "This is original container for movie",
-                Movie = movies[0]
-            };
-            context.MovieContainers.Add(container);
             context.SaveChanges();
 
             //  This method will be called after migrating to the latest version.
