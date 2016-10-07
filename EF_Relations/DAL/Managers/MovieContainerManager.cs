@@ -49,5 +49,18 @@ namespace EF_Relations.DAL.Managers
                 .Include(mc => mc.Movie)
                 .Include(mc => mc.Movie.Genres);
         }
+
+        public static async Task DeleteContainer(int id)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var container = await GetById(id);
+
+                context.MovieContainers.Attach(container);
+                context.MovieContainers.Remove(container);
+
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }
