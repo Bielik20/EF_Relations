@@ -191,6 +191,7 @@
       <DependentUpon>201610051145568_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CheckBoxListItem.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="DAL\IdentityModels.cs" />
