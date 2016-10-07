@@ -1,7 +1,9 @@
-﻿using EF_Relations.Models;
+﻿using EF_Relations.DAL.Managers;
+using EF_Relations.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -26,17 +28,6 @@ namespace EF_Relations.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        public ActionResult ModelRepresentation()
-        {
-            using (ApplicationDbContext context = new ApplicationDbContext())
-            {
-                var containers = context.MovieContainers.ToList();
-                var movies = context.Movies.ToList();
-
-                return View(containers[0]);
-            }
         }
     }
 }
