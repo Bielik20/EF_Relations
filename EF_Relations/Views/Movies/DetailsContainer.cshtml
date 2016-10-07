@@ -1,0 +1,50 @@
+﻿@model EF_Relations.Models.MovieContainer
+@{
+    ViewBag.Title = "Details Container";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<br />
+<div class="row">
+    <div class="col-sm-4">
+        <label class="col-sm-6">@Html.DisplayNameFor(model => model.Description)</label>
+        <div class="col-sm-6">@Html.DisplayFor(model => model.Description)</div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="row">
+            <label class="col-sm-6">@Html.DisplayNameFor(model => model.Movie.Title)</label>
+            <div class="col-sm-6">@Html.DisplayFor(model => model.Movie.Title)</div>
+        </div>
+
+        <div class="row">
+            <label class="col-sm-6">@Html.DisplayNameFor(model => model.Movie.ReleaseDate)</label>
+            <div class="col-sm-6">@Html.DisplayFor(model => model.Movie.ReleaseDate)</div>
+        </div>
+
+        <div class="row">
+            <label class="col-sm-6">@Html.DisplayNameFor(model => model.Movie.RunningTime)</label>
+            <div class="col-sm-6">@Html.DisplayFor(model => model.Movie.RunningTime)</div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <label class="col-sm-6">@Html.DisplayNameFor(model => model.Movie.Genres)</label>
+        
+        @if (Model.Movie != null)
+        {
+            <div class="col-sm-6">
+                @foreach (var genre in Model.Movie.Genres)
+                {
+                    @Html.DisplayFor(modelItem => genre.Name); <br />
+                }
+            </div>
+        }
+        else
+        {
+            @Html.ActionLink("Create Movie", "CreateMovie", new { containerId = Model.Id })
+        }
+
+    </div>
+</div>
