@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using System.Web;
+using EF_Relations.ViewModels.MovieVM;
+using System.Threading.Tasks;
 
 namespace EF_Relations.DAL.Managers
 {
@@ -18,7 +20,7 @@ namespace EF_Relations.DAL.Managers
             }
         }
 
-        public static Movie GetByID(int id)
+        public static Movie GetById(int id)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
@@ -27,31 +29,33 @@ namespace EF_Relations.DAL.Managers
             }
         }
 
-        public static IQueryable<Movie> FullQuery(this ApplicationDbContext context)
+        private static IQueryable<Movie> FullQuery(this ApplicationDbContext context)
         {
             return context.Movies
                 .Include(m => m.Genres);
         }
 
-        public static void Add(string title, DateTime releaseDate, int runningTime, List<int> genres)
+        public static async Task Add(CreateMovieVM model)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 var movie = new Movie()
                 {
-                    Title = title,
-                    ReleaseDate = releaseDate,
-                    RunningTime = runningTime
+                    Id = model.Id,
+                    Title = model.Title,
+                    ReleaseDate = model.ReleaseDate,
+                    RunningTime = model.RunningTime,
                 };
 
-                foreach (var genreID in genres)
+                var selectedGenres = model.Genres.Where(x => x.IsChecked).Select(x => x.Id).ToList();
+                foreach (var genreId in selectedGenres)
                 {
-                    var genre = context.Genres.Find(genreID);
+                    var genre = await context.Genres.FindAsync(genreId);
                     movie.Genres.Add(genre);
                 }
                 context.Movies.Add(movie);
 
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 
