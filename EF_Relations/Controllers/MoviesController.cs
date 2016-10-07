@@ -91,6 +91,32 @@ namespace EF_Relations.Controllers
             return View(model);
         }
 
+        public async Task<ActionResult> DeleteContainer(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var container = await MovieContainerManager.GetById((int)id);
+            if (container == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(container);
+        }
+
+        // POST: Movies/Delete/5
+        [HttpPost, ActionName("DeleteContainer")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteContainerConfirmed(int id)
+        {
+            await MovieContainerManager.DeleteContainer(id);
+            
+            return RedirectToAction("Containers");
+        }
+
+
 
         //---------------------------------
 
@@ -107,29 +133,6 @@ namespace EF_Relations.Controllers
             {
                 return HttpNotFound();
             }
-            return View(movie);
-        }
-
-        // GET: Movies/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Movies/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,ReleaseDate,RunningTime")] Movie movie)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Movies.Add(movie);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
             return View(movie);
         }
 
